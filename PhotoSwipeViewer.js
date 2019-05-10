@@ -1,6 +1,7 @@
 import AComp from "../AComp/AComp";
 
 import photoswipeviewer_css from './photoswipeviewer.css';
+import Dom from "../HTML5/Dom";
 
 var _ = AComp._;
 var $ = AComp.$;
@@ -15,8 +16,18 @@ function PhotoSwipeViewer() {
 PhotoSwipeViewer.prototype.getView = function () {
     if (this.$view) return this.$view;
     this.$view = _(
-        '.ptswpv'
+        {
+            class: 'ptswpv',
+            child: [
+                {
+                    class: 'ptswpv-frame',
+                    child: '.ptswpv-viewing-container'
+                }
+            ]
+        }
     );
+
+    this.$viewingContainder = $('.ptswpv-viewing-container', this.$view);
 
     return this.$view;
 }
@@ -37,10 +48,21 @@ PhotoSwipeViewer.prototype.pickImageElement = function (element) {
         height: eBound.bottom - eBound.top + 'px'
     };
 
-    
-   
-        this.$view.addClass('full');
-       
+    this.$view.addClass('full');
+    this.$viewingImg = $(element.cloneNode())
+        .attr('style', null)
+        .attr('class', 'ptswpv-viewing-img')
+        .addTo(this.$viewingContainder);
+    this.$viewingContainder.addStyle(initStyle);
+    Dom.waitImageLoaded(this.$viewingImg).then(function () {
+        setTimeout(function(){
+            this.$viewingContainder.addClass('grow')
+            .removeStyle(initStyle)
+            .addClass('full');
+
+        }.bind(this),1)
+    }.bind(this));
+
 
 
 
