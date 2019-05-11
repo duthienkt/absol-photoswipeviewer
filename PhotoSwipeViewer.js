@@ -107,18 +107,33 @@ PhotoSwipeViewer.prototype.zoom = function (hs, event) {
 
     var nWidth = photoItem.originSize.width * photoItem.scale;
     var nHeight = photoItem.originSize.height * photoItem.scale;
-    if (nWidth < frameSize.width) {
-        ox = 0.5;
-        dx = 0;
-    }
 
-    if (nHeight < frameSize.height) {
-        oy = 0.5;
-        dy = 0;
-    }
 
     var nLeft = frameSize.width / 2 + dx - nWidth * ox;
     var nTop = frameSize.height / 2 + dy - nHeight * oy;
+
+    var maxTop, minTop, maxLeft, minLeft;
+    if (nHeight > frameSize.height) {
+        maxTop = 0;
+        minTop = frameSize.height -nHeight;
+    }
+    else {
+        minTop = frameSize.height / 2 - nHeight / 2;
+        maxTop = minTop;
+    }
+
+    if (nWidth > frameSize.width) {
+        maxLeft = 0;
+        minLeft = frameSize.width - nWidth;
+    }
+    else {
+        minLeft = frameSize.width / 2 - nWidth / 2;
+        maxLeft = minLeft;
+    }
+
+    nLeft = Math.min(Math.max(nLeft, minLeft), maxLeft);
+    nTop = Math.min(Math.max(nTop, minTop), maxTop);
+
     if (hs < 1 && nWidth < photoItem.originSize.width && Math.max(nWidth, nHeight) < 10) return;
 
     viewImg.addClass('transition-all');
@@ -161,12 +176,10 @@ PhotoSwipeViewer.prototype.download = function () {
 }
 
 PhotoSwipeViewer.prototype.clickHandler = function (event) {
-    if (event.target == this.$viewingImg || event.target == this.$frame) {
         event.preventDefault();
         if (this.tool == this.TOOL_ZOOM_IN) this.zoom(1.3, event);
         if (this.tool == this.TOOL_ZOOM_OUT) this.zoom(1 / 1.3, event);
 
-    }
 };
 
 PhotoSwipeViewer.prototype.dragHandler = function (event) {
@@ -176,18 +189,6 @@ PhotoSwipeViewer.prototype.dragHandler = function (event) {
         var frameSize = this.$frame.getBoundingClientRect();
         var nTop = imgBound.top - frameSize.top + event.movementY;
         var nLeft = imgBound.left - frameSize.left + event.movementX;
-        var maxTop, minTop, maxLeft, minLeft;
-        if (imgBound.height > frameSize.height) {
-            maxTop = 0;
-            minTop = frameSize.height - imgBound.height;
-        }
-
-
-        if (imgBound.width > frameSize.width) {
-            maxLeft = 0;
-            minLeft = frameSize.width - imgBound.width;
-        }
-
         this.$viewingImg.addStyle({
             top: nTop + 'px',
             left: nLeft + 'px'
@@ -225,7 +226,7 @@ PhotoSwipeViewer.prototype.endragHandler = function (event) {
         }
 
         var nLeft = Math.min(Math.max(left, minLeft), maxLeft);
-        var nTop = Math.min(Math.max(left, minTop), maxTop);
+        var nTop = Math.min(Math.max(top, minTop), maxTop);
         var dx = nLeft - left;
         var dy = nTop - top;
         if (dx != 0 || dy != 0) {
@@ -289,8 +290,8 @@ PhotoSwipeViewer.prototype.getView = function () {
     this.$fixedBtn = $('.ptswpv-btn-fullscreen', this.$view).on('click', this.zoomFixedSize.bind(this));
     this.$originSizeBtn = $('.ptswpv-btn-fullscreen_exit', this.$view).on('click', this.zoomOriginSize.bind(this));
     this.$downloadBtn = $('.ptswpv-btn-file_download', this.$view).on('click', this.download.bind(this));
-    this.$view.on('click', this.clickHandler.bind(this));
-    Draggable(this.$viewingContainder).on('drag', this.dragHandler.bind(this)).on('enddrag', this.endragHandler.bind(this));
+ 
+    Draggable(this.$viewingContainder).on('drag', this.dragHandler.bind(this)).on('enddrag', this.endragHandler.bind(this)).on('click', this.clickHandler.bind(this));;
     this.$downloadA = $('a.ptswpv-download', this.$view);
     return this.$view;
 }
