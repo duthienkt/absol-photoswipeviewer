@@ -3,6 +3,7 @@ import AComp from "../AComp/AComp";
 import photoswipeviewer_css from './photoswipeviewer.css';
 import Dom from "../HTML5/Dom";
 import Draggable from "../AComp/js/Draggable";
+import Element from "../HTML5/Element";
 
 var _ = AComp._;
 var $ = AComp.$;
@@ -115,7 +116,7 @@ PhotoSwipeViewer.prototype.zoom = function (hs, event) {
     var maxTop, minTop, maxLeft, minLeft;
     if (nHeight > frameSize.height) {
         maxTop = 0;
-        minTop = frameSize.height -nHeight;
+        minTop = frameSize.height - nHeight;
     }
     else {
         minTop = frameSize.height / 2 - nHeight / 2;
@@ -176,9 +177,9 @@ PhotoSwipeViewer.prototype.download = function () {
 }
 
 PhotoSwipeViewer.prototype.clickHandler = function (event) {
-        event.preventDefault();
-        if (this.tool == this.TOOL_ZOOM_IN) this.zoom(1.3, event);
-        if (this.tool == this.TOOL_ZOOM_OUT) this.zoom(1 / 1.3, event);
+    event.preventDefault();
+    if (this.tool == this.TOOL_ZOOM_IN) this.zoom(1.3, event);
+    if (this.tool == this.TOOL_ZOOM_OUT) this.zoom(1 / 1.3, event);
 
 };
 
@@ -290,7 +291,7 @@ PhotoSwipeViewer.prototype.getView = function () {
     this.$fixedBtn = $('.ptswpv-btn-fullscreen', this.$view).on('click', this.zoomFixedSize.bind(this));
     this.$originSizeBtn = $('.ptswpv-btn-fullscreen_exit', this.$view).on('click', this.zoomOriginSize.bind(this));
     this.$downloadBtn = $('.ptswpv-btn-file_download', this.$view).on('click', this.download.bind(this));
- 
+
     Draggable(this.$viewingContainder).on('drag', this.dragHandler.bind(this)).on('enddrag', this.endragHandler.bind(this)).on('click', this.clickHandler.bind(this));;
     this.$downloadA = $('a.ptswpv-download', this.$view);
     return this.$view;
@@ -350,8 +351,8 @@ PhotoSwipeViewer.prototype.pickImageElement = function (element, originLink, ori
             var imageViewStyle = {
                 width: imgViewSize.width + 'px',
                 height: imgViewSize.height + 'px',
-                left: (frameSize.width - imgViewSize.width) / 2,
-                top: (frameSize.height - imgViewSize.height) / 2,
+                left: (frameSize.width - imgViewSize.width) / 2 + 'px',
+                top: (frameSize.height - imgViewSize.height) / 2 + 'px',
             }
             this.$viewingImg.addClass('transition-all')
                 .addStyle(imageViewStyle);

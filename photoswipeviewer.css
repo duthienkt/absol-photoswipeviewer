@@ -22,7 +22,7 @@
     width: 100%;
     height: 100%;
     position: fixed;
-    z-index: 1000;
+    z-index: 1003;
     opacity: 1;
     background-color: rgba(36, 36, 37, 1);
 }
@@ -41,6 +41,7 @@
 .ptswpv-viewing-container {
     width: 100%;
     height: 100%;
+    position: relative;
 }
 
 .ptswpv-top-bar {
