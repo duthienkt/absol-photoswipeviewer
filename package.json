@@ -1,0 +1,28 @@
+{
+  "name": "absol-photoswipeviewer",
+  "version": "0.0.1",
+  "description": "Photo viewer base on absol.js",
+  "main": "PhotoSwipeViewer.js",
+  "devDependencies": {
+    "absol": "^1.1.0",
+    "absol-acomp": "0.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/duthienkt/absol-photoswipeviewer.git"
+  },
+  "keywords": [
+    "absol",
+    "photo",
+    "viewer"
+  ],
+  "author": "Pham Quoc Du Thien",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/duthienkt/absol-photoswipeviewer/issues"
+  },
+  "homepage": "https://github.com/duthienkt/absol-photoswipeviewer#readme"
+}

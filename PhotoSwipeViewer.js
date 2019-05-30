@@ -1,9 +1,8 @@
-import AComp from "../AComp/AComp";
+import AComp from "absol-acomp/AComp";
 
 import photoswipeviewer_css from './photoswipeviewer.css';
-import Dom from "../HTML5/Dom";
-import Draggable from "../AComp/js/Draggable";
-import Element from "../HTML5/Element";
+import Dom from "absol/src/HTML5/Dom";
+import Draggable from "absol-acomp/js/Draggable";
 
 var _ = AComp._;
 var $ = AComp.$;
