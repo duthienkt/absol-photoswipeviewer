@@ -44,6 +44,7 @@ PhotoSwipeViewer.prototype.close = function () {
         }.bind(this), 305);
     }
     this.$view.addClass('prepare-hide');
+    this.$view.blur();
 };
 
 PhotoSwipeViewer.prototype.disableTool = function () {
@@ -244,9 +245,6 @@ PhotoSwipeViewer.prototype.endragHandler = function (event) {
                 }, 1)
             }, 1)
         }
-        console.log(dx, dy);
-
-
     }
 }
 
@@ -258,7 +256,9 @@ PhotoSwipeViewer.prototype.getView = function () {
     this.$view = _(
         {
             class: 'ptswpv',
-
+            attr: {
+                tabindex: '1'
+            },
             child: [
                 'a.ptswpv-download',
                 {
@@ -275,7 +275,16 @@ PhotoSwipeViewer.prototype.getView = function () {
                         }
                     ]
                 },
-            ]
+            ],
+            on: {
+                keydown: function (event) {
+                    if (event.key == "Escape") {
+                        event.preventDefault();
+                        this.close();
+                    }
+
+                }.bind(this)
+            }
         }
     );
 
@@ -302,6 +311,10 @@ PhotoSwipeViewer.prototype.pickImageElement = function (element, originLink, ori
         element = $(element);
     }
     if (!element) return false;
+    this.$view.addClass('prepare-show');
+    setTimeout(function () {
+        this.$view.removeClass('prepare-show');
+    }.bind(this), 200)
     this.state = this.STATE_PICKED;
 
 
@@ -359,6 +372,8 @@ PhotoSwipeViewer.prototype.pickImageElement = function (element, originLink, ori
                 originImg.addClass('ptswpv-viewing-img').addStyle(imageViewStyle);
                 this.$viewingImg.selfReplace(originImg);
                 this.$viewingImg = originImg;
+                this.$view.focus();
+
             }.bind(this), 305);
         }.bind(this))
 
@@ -377,8 +392,6 @@ PhotoSwipeViewer.newInstance = function () {
     return instance;
 }
 
-PhotoSwipeViewer.$style = _('style').addTo(document.head);
-PhotoSwipeViewer.$style.innerHTML = photoswipeviewer_css;
 
 
 export default PhotoSwipeViewer;

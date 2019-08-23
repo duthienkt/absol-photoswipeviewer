@@ -4,6 +4,7 @@
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+    outline: none;
 }
 
 
@@ -27,8 +28,15 @@
     background-color: rgba(36, 36, 37, 1);
 }
 
+
+
 .ptswpv.prepare-hide {
     background-color: rgba(36, 36, 37, 0);
+}
+
+.ptswpv:.prepare-show .ptswpv-top-bar,
+.ptswpv.prepare-hide .ptswpv-top-bar {
+    visibility: hidden;
 }
 
 .ptswpv-frame {
