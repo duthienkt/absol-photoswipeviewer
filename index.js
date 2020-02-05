@@ -1,2 +1,8 @@
 import PhotoSwipeViewer from "./PhotoSwipeViewer";
-global.PhotoSwipeViewer = PhotoSwipeViewer;
+import PhotoSwipeFrag from "./PhotoSwipeFrag";
+
+export default {
+    PhotoSwipeViewer: PhotoSwipeViewer,
+    PhotoSwipeFrag: PhotoSwipeFrag
+};
+

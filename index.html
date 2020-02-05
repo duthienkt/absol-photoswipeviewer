@@ -2,8 +2,10 @@
 
 <head>
     <title>PhotoSwipe Viewer</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+    <meta name="viewport"
+        content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="//absol.cf/css/materialdesignicons/materialdesignicons.min.css">
     <script src="./dist/photoswipeviewer.js?"></script>
     <style>
         div.gallery {
@@ -25,6 +27,23 @@
         div.desc {
             padding: 15px;
             text-align: center;
+        }
+
+        .gallery {
+            display: none;
+        }
+
+        #main {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        #main>div {
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
@@ -49,14 +68,36 @@
         <img src="https://www.w3schools.com/css/img_mountains.jpg" alt="Mountains" width="600" height="400">
         <div class="desc">Add a description of the image here</div>
     </div>
+    <div id='main'></div>
 
     <script>
-        var mViewer = PhotoSwipeViewer.newInstance();
-        document.querySelectorAll('.gallery img').forEach(function(img){
-            img.addEventListener('click', function(){
-                mViewer.pickImageElement(img, img.src);
+        // var mViewer = PhotoSwipeViewer.newInstance();
+        // document.querySelectorAll('.gallery img').forEach(function(img){
+        //     img.addEventListener('click', function(){
+        //         mViewer.pickImageElement(img, img.src);
+        //     });
+        // });
+
+        var images = [".", "..", "0001_00.jpg", "0002_0.jpg", "0003_1.jpg",
+         "0004_2.jpg", "0005_3.jpg", "0006_4.jpg", "0007_5.jpg", "0008_6.jpg",
+          "0009_7.jpg", "0010_8.jpg", "0011_9.jpg", "0012_10.jpg", "0013_11.jpg",
+           "0014_12.jpg", "0015_13.jpg", "0016_14.jpg", "0017_15.jpg", "0018_16.jpg", 
+           "0019_17.jpg", "0020_18.jpg", "0021_19.jpg", "0022_20.jpg", "0023_21.jpg",
+            "0024_22.jpg", "0025_23.jpg", "0026_24.jpg", "0027_25.jpg", "0028_26.jpg",
+             "0029_27.jpg", "0030_28.jpg", "0031_29.jpg", "0032_30.jpg", "0033_31.jpg",
+              "0034_32.jpg", "0035_33.jpg", "0036_34.jpg", "0037_35.jpg", "0038_36.jpg",
+               "index.php"].filter(function (s) {
+                return !!s.toLowerCase().match(/\.(jpg|png)$/);
+            }).map(function(name){
+                return  'https://absol.cf/camera/roll5/'+ name;
             });
-        });
+
+        var mFrag = new absol.PhotoSwipeFrag();
+        mFrag.getView().addClass('ptswpf-dark').addTo(document.getElementById('main'));
+        mFrag.start();
+        images.forEach(function(src){
+            mFrag.push(src);
+        })
 
     </script>
 </body>
