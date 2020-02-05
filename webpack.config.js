@@ -13,7 +13,7 @@ function resolveEntry(entryInProject){
 
 var packages = {
     default: {
-        entry: ["./index.js"],
+        entry: ["./dev.js"],
         filename: "./dist/photoswipeviewer.js"
     }
 }
@@ -53,7 +53,9 @@ module.exports = {
         ]
     },
     devServer: {
-        compress: true
+        compress: true,
+        host: '0.0.0.0',
+        disableHostCheck: true
     },
     performance: {
         hints: false

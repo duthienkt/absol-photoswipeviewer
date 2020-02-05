@@ -390,8 +390,7 @@ PhotoSwipeViewer.newInstance = function () {
     var instance = new PhotoSwipeViewer();
     instance.getView().addTo(document.body);
     return instance;
-}
-
+};
 
 
 export default PhotoSwipeViewer;
