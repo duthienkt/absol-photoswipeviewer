@@ -167,6 +167,9 @@ PhotoSwipeFrag.prototype.push = function (item) {
     this.photoItems.push(newItem);
     if (!this.currentPhotoItem)
         this.setCurrentItem(newItem);
+    if (this.photoItems.length > 1) {
+        this.$view.addClass('ptswpf-multi-image');
+    }
 };
 
 

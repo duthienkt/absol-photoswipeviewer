@@ -50,6 +50,12 @@ button.ptswpf-to-next-image {
     width: 3em;
     top: calc(50% - 0.75em);
     z-index: 10;
+    display: none;
+}
+
+.ptswpf.ptswpf-multi-image .ptswpf-to-prev-image,
+.ptswpf.ptswpf-multi-image .ptswpf-to-next-image {
+    display: initial;
 }
 
 
