@@ -1,11 +1,11 @@
 {
   "name": "absol-photoswipeviewer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Photo viewer base on absol.js",
   "main": "PhotoSwipeViewer.js",
   "dependencies": {
-    "absol": "^1.7.7",
-    "absol-acomp": "^0.3.8"
+    "absol": "1.11.3",
+    "absol-acomp": "^0.8.8"
   },
   "devDependencies": {
     "@babel/core": "7.2.2",
@@ -22,7 +22,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --config webpack.config.js",
+    "dev": "webpack-dev-server --config webpack.config.js --public http://absol.cf:9000",
     "dist": "webpack --config webpack.config.js --progress --profile --colors --mode production"
   },
   "repository": {
